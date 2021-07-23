@@ -33,15 +33,15 @@ jobs:
         run: west update
       - name: West Zephyr export
         run: west zephyr-export
-      - name: West Build (RoMac)
-        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=romac -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
-      - name: RoMac DTS File
+      - name: West Build (boardsource3x4)
+        run: west build -s zmk/app -b nice_nano_v2 -- -DSHIELD=boardsource3x4 -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: boardsource3x4 DTS File
         if: ${{ always() }}
         run: cat -n build/zephyr/nice_nano_v2.dts.pre.tmp
       - name: RoMac Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 romac_nice_nano_v2.uf2
+        run: cp build/zephyr/zmk.uf2 boardsource3x4_nice_nano_v2.uf2
       - name: Archive (RoMac)
         uses: actions/upload-artifact@v2
         with:
